@@ -1,6 +1,6 @@
-package com.devhub.api.domain.freelancer;
+package com.devhub.api.service.freelancer.dto;
 
-import com.devhub.api.domain.especialidade.EspecialidadeData;
+import com.devhub.api.service.especialidade.dto.EspecialidadeData;
 import com.devhub.api.domain.funcao.Funcao;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Email;

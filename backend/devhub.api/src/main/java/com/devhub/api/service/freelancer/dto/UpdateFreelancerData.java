@@ -1,4 +1,4 @@
-package com.devhub.api.domain.freelancer;
+package com.devhub.api.service.freelancer.dto;
 
 import jakarta.validation.constraints.NotNull;
 

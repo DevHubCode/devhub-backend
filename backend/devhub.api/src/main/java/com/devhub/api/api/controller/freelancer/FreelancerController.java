@@ -1,9 +1,12 @@
-package com.devhub.api.controller;
+package com.devhub.api.api.controller.freelancer;
 
 import com.devhub.api.domain.especialidade.Especialidade;
-import com.devhub.api.domain.especialidade.EspecialidadeData;
-import com.devhub.api.domain.especialidade.EspecialidadeRepository;
+import com.devhub.api.service.especialidade.dto.EspecialidadeData;
+import com.devhub.api.domain.especialidade.repository.EspecialidadeRepository;
 import com.devhub.api.domain.freelancer.*;
+import com.devhub.api.domain.freelancer.repository.FreelancerRepository;
+import com.devhub.api.service.especialidade.dto.EspecialidadeMapper;
+import com.devhub.api.service.freelancer.dto.*;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +15,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.util.UriComponents;
 import org.springframework.web.util.UriComponentsBuilder;
 
 
@@ -21,7 +23,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 public class FreelancerController {
 
     @Autowired
-    private FreelancerRepository repository;
+    private FreelancerRepository freelancerRepository;
     @Autowired
     private EspecialidadeRepository especialidadeRepository;
 
@@ -29,14 +31,15 @@ public class FreelancerController {
     @Transactional
     public ResponseEntity createFreelancer(@Valid @RequestBody CreateFreelancerData data, UriComponentsBuilder uriBuilder) {
 
-        var freelancer = new Freelancer(data);
+        final Freelancer freelancer = FreelancerMapper.of(data);
 
-        repository.save(freelancer);
+        freelancerRepository.save(freelancer);
 
         var listaEspecialidades = data.especialidades();
 
         for (EspecialidadeData dataEspec : listaEspecialidades) {
-            var especialidade = new Especialidade(dataEspec, freelancer);
+            final Especialidade especialidade = EspecialidadeMapper.of(dataEspec, freelancer);
+//            var especialidade = new Especialidade(dataEspec, freelancer);
             especialidadeRepository.save(especialidade);
         }
 
@@ -47,20 +50,20 @@ public class FreelancerController {
 
     @GetMapping
     public ResponseEntity<Page<ListFreelancerData>> listar(@PageableDefault(size = 5, sort = {"nome"})Pageable paginacao){
-        var page = repository.findAllByAtivoTrue(paginacao).map(ListFreelancerData::new);
+        var page = freelancerRepository.findAllByAtivoTrue(paginacao).map(ListFreelancerData::new);
         return ResponseEntity.ok(page);
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<ListFreelancerData> listarFreelancerById(@PathVariable Long id) {
-        var freelancer = repository.getReferenceById(id);
+        var freelancer = freelancerRepository.getReferenceById(id);
         return ResponseEntity.ok(new ListFreelancerData(freelancer));
     }
 
     @PutMapping
     @Transactional
     public ResponseEntity atualizar (@Valid @RequestBody UpdateFreelancerData data){
-        var freelancer = repository.getReferenceById(data.id_freelancer());
+        var freelancer = freelancerRepository.getReferenceById(data.id_freelancer());
         freelancer.atuallizarInformacoes(data);
 
         return ResponseEntity.ok(new DetailFreelancerData(freelancer));
@@ -69,7 +72,7 @@ public class FreelancerController {
     @DeleteMapping("/{id}")
     @Transactional
     public ResponseEntity excluir(@PathVariable Long id){
-        var freelancer = repository.getReferenceById(id);
+        var freelancer = freelancerRepository.getReferenceById(id);
         freelancer.excluir();
         return ResponseEntity.noContent().build();
     }
@@ -77,7 +80,7 @@ public class FreelancerController {
     @PatchMapping("/{id}")
     @Transactional
     public ResponseEntity ativarConta(@PathVariable Long id){
-        var freelancer = repository.getReferenceById(id);
+        var freelancer = freelancerRepository.getReferenceById(id);
         freelancer.ativarConta();
         return ResponseEntity.noContent().build();
     }

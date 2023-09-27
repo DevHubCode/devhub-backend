@@ -1,4 +1,4 @@
-package com.devhub.api.controller;
+package com.devhub.api.api.controller.contratante;
 
 import com.devhub.api.domain.contratante.*;
 import com.devhub.api.domain.freelancer.*;

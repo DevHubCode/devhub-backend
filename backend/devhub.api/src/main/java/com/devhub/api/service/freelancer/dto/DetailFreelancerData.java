@@ -1,6 +1,7 @@
-package com.devhub.api.domain.freelancer;
+package com.devhub.api.service.freelancer.dto;
 
 import com.devhub.api.domain.especialidade.Especialidade;
+import com.devhub.api.domain.freelancer.Freelancer;
 import com.devhub.api.domain.funcao.Funcao;
 
 import java.util.List;

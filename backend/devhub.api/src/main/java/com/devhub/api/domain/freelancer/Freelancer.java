@@ -2,6 +2,8 @@ package com.devhub.api.domain.freelancer;
 
 import com.devhub.api.domain.especialidade.Especialidade;
 import com.devhub.api.domain.funcao.Funcao;
+import com.devhub.api.service.freelancer.dto.CreateFreelancerData;
+import com.devhub.api.service.freelancer.dto.UpdateFreelancerData;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
@@ -11,6 +13,7 @@ import java.util.List;
 @Table(name="freelancers")
 @Entity(name="Freelancer")
 @Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(of = "id_freelancer")

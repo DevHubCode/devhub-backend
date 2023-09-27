@@ -1,4 +1,4 @@
-package com.devhub.api.domain.especialidade;
+package com.devhub.api.service.especialidade.dto;
 
 public record EspecialidadeData(
         String descricao,

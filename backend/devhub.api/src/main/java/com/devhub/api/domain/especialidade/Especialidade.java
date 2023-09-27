@@ -1,18 +1,17 @@
 package com.devhub.api.domain.especialidade;
 
 import com.devhub.api.domain.freelancer.Freelancer;
+import com.devhub.api.service.especialidade.dto.EspecialidadeData;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 
 @Table(name = "especialidades")
 @Entity(name = "Especialidade")
 @Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(of = "id_especialidade")
