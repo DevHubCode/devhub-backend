@@ -1,0 +1,1 @@
+alter table freelancers add column ativo tinyint;
