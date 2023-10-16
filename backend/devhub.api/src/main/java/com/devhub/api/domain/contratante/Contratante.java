@@ -6,11 +6,16 @@ import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+
+import java.util.Collection;
+import java.util.List;
 
 @Table(name = "contratantes")
 @Entity(name = "Contratante")
 @Getter
-//@NoArgsConstructor
+@NoArgsConstructor
 //@AllArgsConstructor
 @EqualsAndHashCode(of = "id")
 public class Contratante extends Usuario {
@@ -43,4 +48,8 @@ public class Contratante extends Usuario {
         this.ativo = true;
     }
 
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return List.of(new SimpleGrantedAuthority("ROLE_CONTRATANTE"));
+    }
 }

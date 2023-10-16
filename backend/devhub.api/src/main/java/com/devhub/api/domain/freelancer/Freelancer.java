@@ -5,19 +5,17 @@ import com.devhub.api.domain.funcao.Funcao;
 import com.devhub.api.domain.usuario.Usuario;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.util.List;
 
 @Table(name = "freelancers")
 @Entity(name = "Freelancer")
 @Getter
-//@NoArgsConstructor
+@Setter
+@NoArgsConstructor
 //@AllArgsConstructor
-//@EqualsAndHashCode(of = "id_freelancer")
+
 public class Freelancer extends Usuario {
     private String cpf;
 
